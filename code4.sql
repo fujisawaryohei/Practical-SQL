@@ -23,3 +23,42 @@ GROUP BY product_id
 HAVING MIN(low_age) = 0 AND MAX(high_age) = 100
 ORDER BY product_id;
 //-------------------------------------------------------------------------
+
+CREATE TABLE Persons
+(name   VARCHAR(8) NOT NULL,
+ age    INTEGER NOT NULL,
+ height FLOAT NOT NULL,
+ weight FLOAT NOT NULL,
+ PRIMARY KEY (name));
+
+
+INSERT INTO Persons VALUES('Anderson',  30,  188,  90);
+INSERT INTO Persons VALUES('Adela',    21,  167,  55);
+INSERT INTO Persons VALUES('Bates',    87,  158,  48);
+INSERT INTO Persons VALUES('Becky',    54,  187,  70);
+INSERT INTO Persons VALUES('Bill',    39,  177,  120);
+INSERT INTO Persons VALUES('Chris',    90,  175,  48);
+INSERT INTO Persons VALUES('Darwin',  12,  160,  55);
+INSERT INTO Persons VALUES('Dawson',  25,  182,  90);
+INSERT INTO Persons VALUES('Donald',  30,  176,  53);
+
+SELECT SUBSTRING(name, 1, 1) as label, COUNT(*)
+FROM persons
+GROUP BY SUBSTRING(name, 1, 1)
+ORDER BY label;
+
+SELECT
+CASE 
+WHEN age < 20 THEN '子供'
+WHEN age BETWEEN 20 AND 69 THEN '成人'
+WHEN age >= 70 THEN '老人'
+ELSE NULL
+END as age_class,
+COUNT(*)
+FROM persons
+GROUP BY CASE 
+WHEN age < 20 THEN '子供'
+WHEN age BETWEEN 20 AND 69 THEN '成人'
+WHEN age >= 70 THEN '老人'
+ELSE NULL
+END;
